@@ -18,15 +18,15 @@
             <form method="POST" action="save-form.php">
                 <div class="form-group">
                     <label class="from-group__label" for="title">Title:</label>
-                    <input class="from-group__input" type="text" id="title" name="title" />
+                    <input class="from-group__input" type="text" id="title" name="title" required />
                 </div>
                 <div class="form-group">
                     <label class="from-group__label" for="date">Date:</label>
-                    <input class="from-group__input" type="date" id="date" name="date" />
+                    <input class="from-group__input" type="date" id="date" name="date" required />
                 </div>
                 <div class="form-group">
                     <label class="from-group__label" for="message">Message:</label>
-                    <textarea class="from-group__input" id="message" name="message" rows="6"></textarea>
+                    <textarea class="from-group__input" id="message" name="message" rows="6" required></textarea>
                 </div>
                 <div class="form-submit">
                     <button class="button">
