@@ -3,8 +3,27 @@
 require_once __DIR__. '/database_connection/db_connect.php';
 require_once __DIR__. '/include/escape.php';
 
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+
+if ($page < 1) {
+    $page = 1;
+}
+
+
 try {
-    $stmt = $pdo->prepare('SELECT * FROM entries');
+    $stmt = $pdo->prepare('SELECT COUNT(*) FROM entries');
+    $stmt->execute();
+    $count = $stmt->fetchColumn();
+
+    $limit = 3;
+
+    $numPages = ceil($count / $limit);
+
+    $offset = $limit * ($page - 1);
+
+    $stmt = $pdo->prepare('SELECT * FROM entries ORDER BY date LIMIT :limit OFFSET :offset');
+    $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+    $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
     $stmt->execute();
     $entries = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
@@ -48,19 +67,15 @@ try {
 
             <ul class="pagination">
                 <li class="pagination__li">
-                    <a class="pagination__link" href="#">⏴</a>
+                    <a class="pagination__link" href="index.php?<?php echo http_build_query(["page" => $page - 1 <= 1 ? 1 : $page - 1]) ?>">⏴</a>
                 </li>
+                <?php for ($i = 1; $i <= $numPages; $i++): ?>
+                    <li class="pagination__li">
+                        <a class="pagination__link <?php echo $page === $i ? "pagination__link--active" : "" ?>" href="index.php?<?php echo http_build_query(["page" => $i]) ?>"><?php echo $i ?></a>
+                    </li>
+                <?php endfor; ?>
                 <li class="pagination__li">
-                    <a class="pagination__link pagination__link--active" href="#">1</a>
-                </li>
-                <li class="pagination__li">
-                    <a class="pagination__link" href="#">2</a>
-                </li>
-                <li class="pagination__li">
-                    <a class="pagination__link" href="#">3</a>
-                </li>
-                <li class="pagination__li">
-                    <a class="pagination__link" href="#">⏵</a>
+                    <a class="pagination__link" href="index.php?<?php echo http_build_query(["page" => $page + 1 > $numPages ? $numPages : $page + 1]) ?>">⏵</a>
                 </li>
             </ul>
         </div>
