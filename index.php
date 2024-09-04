@@ -52,7 +52,7 @@ try {
             <?php foreach ($entries as $entry): ?>
                 <div class="card">
                     <div class="card__image-container">
-                        <img class="card__image" src="images/pexels-canva-studio-3153199.jpg" alt="" />
+                        <img class="card__image" src="images/<?php echo $entry["image_url"] ?? "pexels-canva-studio-3153199.jpg" ?>" alt="" />
                     </div>
                     <div class="card__desc-container">
                         <div class="card__desc-time"><?php echo e($entry['title']) ?></div>

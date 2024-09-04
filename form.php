@@ -15,18 +15,22 @@
         <div class="container">
             <h1 class="main-heading">New Entry</h1>
 
-            <form method="POST" action="save-form.php">
+            <form method="POST" action="save-form.php" enctype="multipart/form-data">
                 <div class="form-group">
                     <label class="from-group__label" for="title">Title:</label>
-                    <input class="from-group__input" type="text" id="title" name="title" required />
+                    <input class="from-group__input" type="text" id="title" name="title" />
                 </div>
                 <div class="form-group">
                     <label class="from-group__label" for="date">Date:</label>
-                    <input class="from-group__input" type="date" id="date" name="date" required />
+                    <input class="from-group__input" type="date" id="date" name="date" />
+                </div>
+                <div class="form-group">
+                    <label class="from-group__label" for="image_url">Image:</label>
+                    <input class="from-group__input" type="file" id="image_url" name="image_url" />
                 </div>
                 <div class="form-group">
                     <label class="from-group__label" for="message">Message:</label>
-                    <textarea class="from-group__input" id="message" name="message" rows="6" required></textarea>
+                    <textarea class="from-group__input" id="message" name="message" rows="6"></textarea>
                 </div>
                 <div class="form-submit">
                     <button class="button">
